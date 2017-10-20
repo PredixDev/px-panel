@@ -8,7 +8,7 @@
        */fixed:{type:Boolean,value:false,reflectToAttribute:true,observer:'_onResize'},/**
        * If set to true, the panel will be opened and calls to the `close()` method will be ignored.
        * Mutating the `opened` property will still force a close of the panel.
-       */persistent:{type:Boolean,value:false,observer:'_persistentChanged'},/**
+       */persistent:{type:Boolean,value:false,observer:'_persistentChanged',reflectToAttribute:true},/**
        * Whether to display the panel with a `light`, `medium`, or `dark` background.
        * These terms are relative, and can be used in conjunction with px-theme,
        * px-dark-theme, or your custom theme or CSS variables to toggle between 3 different

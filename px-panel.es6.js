@@ -47,7 +47,8 @@
       persistent: {
         type: Boolean,
         value: false,
-        observer: '_persistentChanged'
+        observer: '_persistentChanged',
+        reflectToAttribute: true
       },
       /**
        * Whether to display the panel with a `light`, `medium`, or `dark` background.

@@ -1,3 +1,7 @@
+v1.0.3
+==================
+* remove shadow on persistent panels
+
 v1.0.2
 ==================
 * fix travis

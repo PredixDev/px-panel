@@ -39,6 +39,9 @@
   &[fixed] {
     position: fixed;
   }
+  &[persistent] {
+    box-shadow: none;
+  }
 }
 :host[position=right], :host[position=left] {
   width: 0;
