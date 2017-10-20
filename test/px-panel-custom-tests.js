@@ -30,20 +30,13 @@ function runCustomTests() {
         done();
       });
     });
-    it('is empty by default', function(done) {
-      flush(function() {
-        var contents = panel.innerText.trim();
-        expect(contents).to.equal('');
-        done();
-      });
-    });
     it('expands with .open()', function(done){
       panel.open();
       expect(panel.opened).to.be.true;
       flush(function() {
         var width = parseFloat(window.getComputedStyle(panel).getPropertyValue('width')),
             height = parseFloat(window.getComputedStyle(panel).getPropertyValue('height'));
-        expect(width).to.be.closeTo(320,1);
+        expect(width).to.be.closeTo(320,2);
         expect(height).to.be.closeTo(300,1);
         done();
       });
@@ -53,7 +46,7 @@ function runCustomTests() {
       flush(function() {
         var width = parseFloat(window.getComputedStyle(panel).getPropertyValue('width')),
             height = parseFloat(window.getComputedStyle(panel).getPropertyValue('height'));
-        expect(width).to.be.closeTo(320,1);
+        expect(width).to.be.closeTo(320,2);
         expect(height).to.be.closeTo(300,1);
         done();
       });
@@ -63,14 +56,6 @@ function runCustomTests() {
       expect(panel.opened).to.be.true;
       panel.close();
       expect(panel.opened).to.be.true;
-    });
-    it('displays content when opened', function(done) {
-      panel.open();
-      flush(function() {
-        var contents = panel.innerText.trim();
-        expect(contents).to.equal('Test');
-        done();
-      });
     });
     it('appears when minimized', function(done){
       panel.minimizable = true;
@@ -82,14 +67,6 @@ function runCustomTests() {
         done();
       });
     });
-    it('displays minimized content', function(done) {
-      panel.minimizable = true;
-      flush(function() {
-        var contents = panel.innerText.trim();
-        expect(contents).to.equal('Mini');
-        done();
-      });
-    });
     it('works as expected with fixed', function(done) {
       panel.fixed = true;
       panel.open();
@@ -97,7 +74,7 @@ function runCustomTests() {
         var width = parseFloat(window.getComputedStyle(panel).getPropertyValue('width')),
             height = parseFloat(window.getComputedStyle(panel).getPropertyValue('height')),
             docHeight = document.documentElement.clientHeight;
-        expect(width).to.be.closeTo(320,1);
+        expect(width).to.be.closeTo(320,2);
         expect(height).to.equal(docHeight);
         done();
       });

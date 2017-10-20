@@ -1,3 +1,7 @@
-v0.0.1
+v1.0.1
 ==================
-* Initial release
+* fix tests for IE11
+
+v1.0.0
+==================
+* initial release
