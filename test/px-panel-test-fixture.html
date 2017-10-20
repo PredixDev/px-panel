@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Web Component Test : Fixture for px-panel</title>
+
+    <!-- Requires Webcomponents.js polyfill is provided by the page for browsers that don't support html imports -->
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <!-- web-component-tester automatically provides local copy of brower.js below
+         for any URL ending with "/web-component-tester/browser.js"
+         when wct is run from the command line -->
+    <script src="../web-component-tester/browser.js"></script>
+    <link rel="import" href="../px-panel.html" />
+    <!-- Retain this link for px-theme.html -->
+    <!-- px-theme is needed for WCT to run without errors -->
+    <link rel="import" href="../bower_components/px-theme/px-theme-styles.html"/>
+    <!-- This script link will contain the generated script stub for custom, developer-added test cases -->
+    <script src="px-panel-custom-tests.js"></script>
+    <!-- Load test helpers -->
+    <script src="../../test-fixture/test-fixture-mocha.js"></script>
+    <link rel="import" href="../../test-fixture/test-fixture.html"/>
+
+  </head>
+
+  <body>
+    <style include="px-theme-styles" is="custom-style"></style>
+    <h3>Web Component Test : Fixture for px-panel</h3>
+
+    <test-fixture id="panelFixture">
+      <template>
+        <div style="width:900px;height:300px;position:relative;">
+          <px-panel id="panel">
+            <div slot="content">Test</div>
+            <div slot="minimized">Mini</div>
+          </px-panel>
+        </div>
+      </template>
+    </test-fixture>
+  </body>
+</html>
