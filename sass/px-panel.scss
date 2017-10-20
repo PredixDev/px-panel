@@ -39,7 +39,7 @@
   &[fixed] {
     position: fixed;
   }
-  &[persistent] {
+  &[persistent]:not([fixed]):not([floating]) {
     box-shadow: none;
   }
 }

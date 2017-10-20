@@ -1,3 +1,7 @@
+v1.0.4
+==================
+* add shadow back for fixed/floating
+
 v1.0.3
 ==================
 * remove shadow on persistent panels
