@@ -23,107 +23,107 @@
 // Objects
 
 // Component
-:host {
+.container {
   display: block;
   position: absolute;
   z-index: var(--px-panel-z-index, 100);
   background: var(--px-panel-bg-color--light, #FFF);
   box-shadow: -1px -1px 3px rgba(0,0,0,0.2),
               1px 1px 3px rgba(0,0,0,0.2);
-  &[background=medium] {
+  &.medium {
     background: var(--px-panel-bg-color--medium, #EEE);
   }
-  &[background=dark] {
+  &.dark {
     background: var(--px-panel-bg-color--dark, #DDD)
   }
-  &[fixed] {
+  &.fixed {
     position: fixed;
   }
-  &[persistent]:not([fixed]):not([floating]) {
+  &.persistent:not(.fixed):not(.floating) {
     box-shadow: none;
   }
 }
-:host[position=right], :host[position=left] {
+.container.right, .container.left {
   width: 0;
   height: auto;
   top: 0;
   bottom: 0;
   transition: width 0.4s cubic-bezier(.78,.13,.16,.87);
-  &[minimizable] {
+  &.minimizable {
     width: var(--px-panel-size--minimized, 4rem);
   }
-  &[opened] {
+  &.opened {
     width: var(--px-panel-size, calculateRem(320px));
     overflow-y: auto;
-    &[full-size] {
+    &.full-size {
       width: 100%;
     }
   }
-  &[floating]:not([full-size]) {
+  &.floating:not(.full-size) {
     top: var(--px-panel-offset--top, 2rem);
     bottom: var(--px-panel-offset--bottom, 2rem);
-    &[opened] {
+    &.opened {
       border: 1px solid var(--px-panel-border-color, gray);
     }
   }
 }
-:host[position=right] {
+.container.right {
   right: 0;
-  &[floating]:not([full-size]) {
+  &.floating:not(.full-size) {
     right: var(--px-panel-offset--right, 2rem);
   }
-  &[opened]:not([full-size]) {
+  &.opened:not(.full-size) {
     border-left: 1px solid var(--px-panel-border-color, gray);
   }
 }
-:host[position=left] {
+.container.left {
   left: 0;
-  &[floating]:not([full-size]) {
+  &.floating:not(.full-size) {
     left: var(--px-panel-offset--left, 2rem);
   }
-  &[opened]:not([full-size]) {
+  &.opened:not(.full-size) {
     border-right: 1px solid var(--px-panel-border-color, gray);
   }
 }
-:host[position=top], :host[position=bottom] {
+.container.top, .container.bottom {
   width: auto;
   height: 0;
   right: 0;
   left: 0;
   transition: height 0.4s cubic-bezier(.78,.13,.16,.87);
-  &[minimizable] {
+  &.minimizable {
     height: var(--px-panel-size--minimizable, 4rem);
   }
-  &[opened] {
+  &.opened {
     height: var(--px-panel-size, calculateRem(320px));
     overflow-y: auto;
-    &[full-size] {
+    &.full-size {
       height: 100%;
     }
   }
-  &[floating]:not([full-size]) {
+  &.floating:not(.full-size) {
     right: var(--px-panel-offset--right, 2rem);
     left: var(--px-panel-offset--left, 2rem);
-    &[opened] {
+    &.opened {
       border: 1px solid var(--px-panel-border-color, gray);
     }
   }
 }
-:host[position=top] {
+.container.top {
   top: 0;
-  &[floating]:not([full-size]) {
+  &.floating:not(.full-size) {
     top: var(--px-panel-offset--top, 2rem);
   }
-  &[opened]:not([full-size]) {
+  &.opened:not(.full-size) {
     border-bottom: 1px solid var(--px-panel-border-color, gray);
   }
 }
-:host[position=bottom] {
+.container.bottom {
   bottom: 0;
-  &[floating]:not([full-size]) {
+  &.floating:not(.full-size) {
     bottom: var(--px-panel-offset--bottom, 2rem);
   }
-  &[opened]:not([full-size]) {
+  &.opened:not(.full-size) {
     border-top: 1px solid var(--px-panel-border-color, gray);
   }
 }
@@ -131,7 +131,7 @@
 .content, .minimized {
   display: none;
 }
-:host([opened]) .content, :host([minimizable]):not([opened]) .minimized {
+.container.opened .content, .container.minimizable:not(.opened) .minimized {
   display: block;
 }
 

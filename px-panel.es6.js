@@ -18,7 +18,6 @@
       position: {
         type: String,
         value: 'right',
-        reflectToAttribute: true,
         observer: '_onResize'
       },
       /**
@@ -27,8 +26,7 @@
       opened: {
         type: Boolean,
         value: false,
-        notify: true,
-        reflectToAttribute: true
+        notify: true
       },
       /**
        * If set to true, the panel will have `position:fixed` so it will
@@ -37,7 +35,6 @@
       fixed: {
         type: Boolean,
         value: false,
-        reflectToAttribute: true,
         observer: '_onResize'
       },
       /**
@@ -47,8 +44,7 @@
       persistent: {
         type: Boolean,
         value: false,
-        observer: '_persistentChanged',
-        reflectToAttribute: true
+        observer: '_persistentChanged'
       },
       /**
        * Whether to display the panel with a `light`, `medium`, or `dark` background.
@@ -58,8 +54,7 @@
        */
       background: {
         type: String,
-        value: 'light',
-        reflectToAttribute: true
+        value: 'light'
       },
       /**
        * If set to true, the panel will appear with an offset relative to the screen / container edges.
@@ -67,8 +62,7 @@
        */
       floating: {
         type: Boolean,
-        value: false,
-        reflectToAttribute: true
+        value: false
       },
       /**
        * If set to true, the panel will not fully collapse when closed. It will appear in a minimized state.
@@ -77,18 +71,15 @@
        */
       minimizable: {
         type: Boolean,
-        value: false,
-        reflectToAttribute: true
+        value: false
       },
       /**
        * Used internally to determine if the panel should display at full-width or full-height
        * for mobile responsiveness and space-constrained situations.
        */
-      fullSize: {
+      _fullSize: {
         type: Boolean,
-        value: false,
-        reflectToAttribute: true,
-        readOnly: true
+        value: false
       }
     },
     /**
@@ -106,6 +97,19 @@
       }
     },
     /**
+     * Returns the appropriate classes based on the property values.
+     */
+    _getClasses(position,background,fixed,persistent,opened,floating,minimizable,fullSize) {
+      var classes = [position, background];
+      if(fixed) classes.push('fixed');
+      if(persistent) classes.push('persistent');
+      if(opened) classes.push('opened');
+      if(floating) classes.push('floating');
+      if(minimizable) classes.push('minimizable');
+      if(fullSize) classes.push('full-size');
+      return classes.join(' ');
+    },
+    /**
      * Sets the `opened` property for persistent panels.
      */
     _persistentChanged(newValue) {
@@ -119,19 +123,19 @@
         if(this.fixed) {
           if(((this.position === "left" || this.position === "right") && window.innerWidth < 600) ||
             ((this.position === "top" || this.position === "bottom") && window.innerHeight < 600)) {
-            this._setFullSize(true);
+            this._fullSize = true;
           }
           else {
-            this._setFullSize(false);
+            this._fullSize = false;
           }
         }
         else {
           if(((this.position === "left" || this.position === "right") && this.parentNode.getBoundingClientRect().width < 600) ||
             ((this.position === "top" || this.position === "bottom") && this.parentNode.getBoundingClientRect().height < 600)) {
-            this._setFullSize(true);
+            this._fullSize = true;
           }
           else {
-            this._setFullSize(false);
+            this._fullSize = false;
           }
         }
       },100);

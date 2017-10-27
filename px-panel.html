@@ -65,11 +65,13 @@ Custom property | Description
 <dom-module id="px-panel">
   <template>
     <style include="px-panel-styles"></style>
-    <div class="content">
-      <slot name="content"></slot>
-    </div>
-    <div class="minimized">
-      <slot name="minimized"></slot>
+    <div class$="container {{_getClasses(position,background,fixed,persistent,opened,floating,minimizable,_fullSize)}}">
+      <div class="content">
+        <slot name="content"></slot>
+      </div>
+      <div class="minimized">
+        <slot name="minimized"></slot>
+      </div>
     </div>
   </template>
 </dom-module>

@@ -1,3 +1,7 @@
+v1.0.5
+==================
+* fix shadow dom & demo
+
 v1.0.4
 ==================
 * add shadow back for fixed/floating

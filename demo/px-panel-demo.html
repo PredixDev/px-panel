@@ -48,7 +48,9 @@
             minimizable="{{props.minimizable.value}}">
             <!-- Example -->
             <div slot="content" style="display:flex;flex-direction:column;padding:1rem;">
-              <px-icon class="actionable actionable--action" icon="px-nav:close" style="cursor:pointer;" on-tap="close"></px-icon>
+              <template is="dom-if" if="{{!props.persistent.value}}">
+                <px-icon class="actionable actionable--action" icon="px-nav:close" style="cursor:pointer;" on-tap="close"></px-icon>
+              </template>
               <span class="heading--section u-mv">Filter Scope</span>
               <label for="input1">Group Name is</label>
               <px-dropdown id="input1" items='["Action"]' selected="0"></px-dropdown>

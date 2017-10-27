@@ -5,11 +5,12 @@ document.addEventListener("WebComponentsReady", function () {
 function runCustomTests() {
 
   describe('Basic tests for px-panel', function() {
-    var panelFixture, panel;
+    var panelFixture, panel, container;
 
     beforeEach(function() {
       panelFixture = fixture('panelFixture'),
-      panel = panelFixture.querySelector('#panel');
+      panel = panelFixture.querySelector('#panel'),
+      container = panel.querySelector('.container');
       // disable animations to avoid need for setTimeouts
       panel.style.transition = "none";
     });
@@ -23,8 +24,8 @@ function runCustomTests() {
     });
     it('is hidden by default', function(done) {
       flush(function() {
-        var width = parseFloat(window.getComputedStyle(panel).getPropertyValue('width')),
-            height = parseFloat(window.getComputedStyle(panel).getPropertyValue('height'));
+        var width = parseFloat(window.getComputedStyle(container).getPropertyValue('width')),
+            height = parseFloat(window.getComputedStyle(container).getPropertyValue('height'));
         expect(width).to.equal(0);
         expect(height).to.be.closeTo(300,1);
         done();
@@ -34,8 +35,8 @@ function runCustomTests() {
       panel.open();
       expect(panel.opened).to.be.true;
       flush(function() {
-        var width = parseFloat(window.getComputedStyle(panel).getPropertyValue('width')),
-            height = parseFloat(window.getComputedStyle(panel).getPropertyValue('height'));
+        var width = parseFloat(window.getComputedStyle(container).getPropertyValue('width')),
+            height = parseFloat(window.getComputedStyle(container).getPropertyValue('height'));
         expect(width).to.be.closeTo(320,2);
         expect(height).to.be.closeTo(300,1);
         done();
@@ -44,8 +45,8 @@ function runCustomTests() {
     it('expands with opened property', function(done){
       panel.opened = true;
       flush(function() {
-        var width = parseFloat(window.getComputedStyle(panel).getPropertyValue('width')),
-            height = parseFloat(window.getComputedStyle(panel).getPropertyValue('height'));
+        var width = parseFloat(window.getComputedStyle(container).getPropertyValue('width')),
+            height = parseFloat(window.getComputedStyle(container).getPropertyValue('height'));
         expect(width).to.be.closeTo(320,2);
         expect(height).to.be.closeTo(300,1);
         done();
@@ -60,8 +61,8 @@ function runCustomTests() {
     it('appears when minimized', function(done){
       panel.minimizable = true;
       flush(function() {
-        var width = parseFloat(window.getComputedStyle(panel).getPropertyValue('width')),
-            height = parseFloat(window.getComputedStyle(panel).getPropertyValue('height'));
+        var width = parseFloat(window.getComputedStyle(container).getPropertyValue('width')),
+            height = parseFloat(window.getComputedStyle(container).getPropertyValue('height'));
         expect(width).to.equal(60);
         expect(height).to.be.closeTo(300,1);
         done();
@@ -71,26 +72,12 @@ function runCustomTests() {
       panel.fixed = true;
       panel.open();
       flush(function() {
-        var width = parseFloat(window.getComputedStyle(panel).getPropertyValue('width')),
-            height = parseFloat(window.getComputedStyle(panel).getPropertyValue('height')),
+        var width = parseFloat(window.getComputedStyle(container).getPropertyValue('width')),
+            height = parseFloat(window.getComputedStyle(container).getPropertyValue('height')),
             docHeight = document.documentElement.clientHeight;
         expect(width).to.be.closeTo(320,2);
         expect(height).to.equal(docHeight);
         done();
-      });
-    });
-    it('behaves responsively', function(done) {
-      panelFixture.style.width = '500px';
-      panel.open();
-      panel.notifyResize();
-      flush(function() {
-        window.setTimeout(function() {
-          var width = parseFloat(window.getComputedStyle(panel).getPropertyValue('width')),
-              height = parseFloat(window.getComputedStyle(panel).getPropertyValue('height'));
-          expect(width).to.equal(500);
-          expect(height).to.equal(300);
-          done();
-        },150); // account for resize debounce
       });
     });
 
