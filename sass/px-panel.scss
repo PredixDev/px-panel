@@ -29,110 +29,163 @@
   z-index: var(--px-panel-z-index, 100);
   background: var(--px-panel-bg-color--light, #FFF);
   box-shadow: -1px -1px 3px rgba(0,0,0,0.2),
-              1px 1px 3px rgba(0,0,0,0.2);
-  &.medium {
-    background: var(--px-panel-bg-color--medium, #EEE);
+               1px  1px 3px rgba(0,0,0,0.2);
   }
-  &.dark {
-    background: var(--px-panel-bg-color--dark, #DDD)
-  }
-  &.fixed {
-    position: fixed;
-  }
-  &.persistent:not(.fixed):not(.floating) {
-    box-shadow: none;
-  }
+
+.fixed {
+  position: fixed;
 }
-.container.right, .container.left {
-  width: 0;
+
+.persistent:not(.fixed):not(.floating) {
+  box-shadow: none;
+}
+
+.medium {
+  background: var(--px-panel-bg-color--medium, #EEE);
+}
+
+.dark {
+  background: var(--px-panel-bg-color--dark, #DDD)
+}
+
+
+/*********************************************
+Left and Right
+*********************************************/
+.right,
+.left {
   height: auto;
+  width: 0;
   top: 0;
   bottom: 0;
   transition: width 0.4s cubic-bezier(.78,.13,.16,.87);
-  &.minimizable {
-    width: var(--px-panel-size--minimized, 4rem);
-  }
-  &.opened {
-    width: var(--px-panel-size, calculateRem(320px));
-    overflow-y: auto;
-    &.full-size {
-      width: 100%;
-    }
-  }
-  &.floating:not(.full-size) {
-    top: var(--px-panel-offset--top, 2rem);
-    bottom: var(--px-panel-offset--bottom, 2rem);
-    &.opened {
-      border: 1px solid var(--px-panel-border-color, gray);
-    }
-  }
 }
-.container.right {
+.right.minimizable,
+.left.minimizable {
+  width: var(--px-panel-size--minimized, 4rem);
+}
+.right.opened,
+.left.opened {
+  width: var(--px-panel-size, calculateRem(320px));
+  overflow-y: auto;
+}
+.right.floating,
+.left.floating {
+  border: 1px solid var(--px-panel-border-color, gray);
+}
+
+.right {
   right: 0;
-  &.floating:not(.full-size) {
-    right: var(--px-panel-offset--right, 2rem);
-  }
-  &.opened:not(.full-size) {
-    border-left: 1px solid var(--px-panel-border-color, gray);
-  }
 }
-.container.left {
+.right.opened {
+  border-left: 1px solid var(--px-panel-border-color, gray);
+}
+.right.floating {
+  right: var(--px-panel-offset--right, 2rem);
+  top: var(--px-panel-offset--top, 2rem);
+  bottom: var(--px-panel-offset--bottom, 2rem);
+}
+
+.left {
   left: 0;
-  &.floating:not(.full-size) {
-    left: var(--px-panel-offset--left, 2rem);
-  }
-  &.opened:not(.full-size) {
-    border-right: 1px solid var(--px-panel-border-color, gray);
-  }
 }
-.container.top, .container.bottom {
+.left.opened {
+  border-right: 1px solid var(--px-panel-border-color, gray);
+}
+.left.floating {
+  left: var(--px-panel-offset--left, 2rem);
+  top: var(--px-panel-offset--top, 2rem);
+  bottom: var(--px-panel-offset--bottom, 2rem);
+}
+
+/*********************************************
+Top and Bottom
+*********************************************/
+.top,
+.bottom {
   width: auto;
   height: 0;
   right: 0;
   left: 0;
   transition: height 0.4s cubic-bezier(.78,.13,.16,.87);
-  &.minimizable {
-    height: var(--px-panel-size--minimizable, 4rem);
-  }
-  &.opened {
-    height: var(--px-panel-size, calculateRem(320px));
-    overflow-y: auto;
-    &.full-size {
-      height: 100%;
-    }
-  }
-  &.floating:not(.full-size) {
-    right: var(--px-panel-offset--right, 2rem);
-    left: var(--px-panel-offset--left, 2rem);
-    &.opened {
-      border: 1px solid var(--px-panel-border-color, gray);
-    }
-  }
 }
-.container.top {
-  top: 0;
-  &.floating:not(.full-size) {
-    top: var(--px-panel-offset--top, 2rem);
-  }
-  &.opened:not(.full-size) {
-    border-bottom: 1px solid var(--px-panel-border-color, gray);
-  }
+.top.minimizable,
+.bottom.minimizable {
+  height: var(--px-panel-size--minimizable, 4rem);
 }
-.container.bottom {
-  bottom: 0;
-  &.floating:not(.full-size) {
-    bottom: var(--px-panel-offset--bottom, 2rem);
-  }
-  &.opened:not(.full-size) {
-    border-top: 1px solid var(--px-panel-border-color, gray);
-  }
+.top.opened,
+.bottom.opened {
+  height: var(--px-panel-size, calculateRem(320px));
+  overflow-y: auto;
+}
+.top.floating,
+.bottom.floating {
+  border: 1px solid var(--px-panel-border-color, gray);
 }
 
-.content, .minimized {
+.top {
+  top: 0;
+}
+.top.opened {
+  border-bottom: 1px solid var(--px-panel-border-color, gray);
+}
+.top.floating {
+  right: var(--px-panel-offset--right, 2rem);
+  left: var(--px-panel-offset--left, 2rem);
+  top: var(--px-panel-offset--top, 2rem);
+}
+
+.bottom {
+  bottom: 0;
+}
+.bottom.opened {
+  border-top: 1px solid var(--px-panel-border-color, gray);
+}
+.bottom.floating {
+  right: var(--px-panel-offset--right, 2rem);
+  left: var(--px-panel-offset--left, 2rem);
+  bottom: var(--px-panel-offset--bottom, 2rem);
+}
+
+/*********************************************
+Minimizable
+*********************************************/
+.minimized {
   display: none;
 }
-.container.opened .content, .container.minimizable:not(.opened) .minimized {
+
+.minimizable:not(.opened) .minimized {
   display: block;
+}
+
+
+/*********************************************
+Content
+*********************************************/
+.content {
+  display: none;
+}
+
+.opened .content {
+  display: block;
+}
+
+
+/*********************************************
+Full Size
+*********************************************/
+.full-size.full-size{
+  top: 0;
+  right: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  border-top: none;
 }
 
 // Trumps
