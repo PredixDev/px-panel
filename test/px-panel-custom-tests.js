@@ -12,7 +12,7 @@ function runCustomTests() {
       panel = panelFixture.querySelector('#panel'),
       container = panel.querySelector('.container');
       // disable animations to avoid need for setTimeouts
-      panel.style.transition = "none";
+      container.style.transition = "none";
     });
 
     it('has default settings', function(){
@@ -74,8 +74,14 @@ function runCustomTests() {
       flush(function() {
         var width = parseFloat(window.getComputedStyle(container).getPropertyValue('width')),
             height = parseFloat(window.getComputedStyle(container).getPropertyValue('height')),
-            docHeight = document.documentElement.clientHeight;
-        expect(width).to.be.closeTo(320,2);
+            docHeight = document.documentElement.clientHeight,
+            docWidth = document.documentElement.clientWidth;
+        if(docWidth < 600) {
+          expect(width).to.equal(docWidth);
+        }
+        else {
+          expect(width).to.be.closeTo(320,2);
+        }
         expect(height).to.equal(docHeight);
         done();
       });

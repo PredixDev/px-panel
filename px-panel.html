@@ -1,6 +1,7 @@
 <link rel="import" href="../polymer/polymer.html" />
 <link rel="import" href="css/px-panel-styles.html"/>
 <link rel="import" href="../iron-resizable-behavior/iron-resizable-behavior.html"/>
+<link rel="import" href="../iron-a11y-keys-behavior/iron-a11y-keys-behavior.html"/>
 
 <!--
 
@@ -65,11 +66,11 @@ Custom property | Description
 <dom-module id="px-panel">
   <template>
     <style include="px-panel-styles"></style>
-    <div class$="container {{_getContainerClasses(position,background,fixed,persistent,opened,floating,minimizable,_fullSize)}}">
-      <div class="content">
+    <div class$="container {{_getContainerClasses(position,background,fixed,persistent,opened,floating,minimizable,_fullSize)}}" aria-expanded$="[[opened]]">
+      <div class="content" aria-hidden$="[[!opened]]">
         <slot name="content"></slot>
       </div>
-      <div class="minimized">
+      <div class="minimized" aria-hidden$="[[_isHidden(minimizable,opened)]]">
         <slot name="minimized"></slot>
       </div>
     </div>

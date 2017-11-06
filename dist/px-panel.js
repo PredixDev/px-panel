@@ -1,11 +1,13 @@
-'use strict';(function(){Polymer({is:'px-panel',behaviors:[Polymer.IronResizableBehavior],listeners:{'iron-resize':'_onResize'},properties:{/**
+'use strict';(function(){Polymer({is:'px-panel',behaviors:[Polymer.IronResizableBehavior,Polymer.IronA11yKeysBehavior],listeners:{'iron-resize':'_handleResize'},/**
+     * Used by iron-a11y-keys-behavior.
+     */keyBindings:{'esc':'close'},hostAttributes:{'role':'region'},properties:{/**
       * Where to place the panel - one of `top`, `bottom`, `left`, or `right`.
-      */position:{type:String,value:'right',observer:'_onResize'},/**
+      */position:{type:String,value:'right',observer:'_handleResize'},/**
        * Whether the panel is currently open (expanded).
-       */opened:{type:Boolean,value:false,notify:true},/**
+       */opened:{type:Boolean,value:false,notify:true,observer:'_handleResize'},/**
        * If set to true, the panel will have `position:fixed` so it will
        * be attached to the browser window instead of its parent container.
-       */fixed:{type:Boolean,value:false,observer:'_onResize'},/**
+       */fixed:{type:Boolean,value:false,observer:'_handleResize'},/**
        * If set to true, the panel will be opened and calls to the `close()` method will be ignored.
        * Mutating the `opened` property will still force a close of the panel.
        */persistent:{type:Boolean,value:false,observer:'_persistentChanged'},/**
@@ -23,13 +25,24 @@
        */minimizable:{type:Boolean,value:false},/**
        * Used internally to determine if the panel should display at full-width or full-height
        * for mobile responsiveness and space-constrained situations.
-       */_fullSize:{type:Boolean,value:false}},/**
-    * Opens the panel
+       */_fullSize:{type:Boolean,value:false},/**
+       * Used by iron-a11y-keys-behavior.
+       */keyEventTarget:{type:Object,value:function value(){return document.body}}},/**
+    * Opens the panel.
     */open:function open(){this.opened=true},/**
-    * Closes the panel
+    * Closes the panel. Also called by iron-a11y-keys-behavior when a user presses the "Esc" key.
     */close:function close(){if(!this.persistent){this.opened=false}},/**
      * Returns the appropriate classes based on the property values.
      */_getContainerClasses:function _getContainerClasses(position,background,fixed,persistent,opened,floating,minimizable,fullSize){var classes=[position,background];if(fixed)classes.push('fixed');if(persistent)classes.push('persistent');if(opened)classes.push('opened');if(floating)classes.push('floating');if(minimizable)classes.push('minimizable');if(fullSize)classes.push('full-size');return classes.join(' ')},/**
      * Sets the `opened` property for persistent panels.
-     */_persistentChanged:function _persistentChanged(newValue){if(newValue&&!this.opened){this.open()}},_onResize:function _onResize(e){this.debounce('resize',function(){if(this.fixed){if((this.position==='left'||this.position==='right')&&window.innerWidth<600||(this.position==='top'||this.position==='bottom')&&window.innerHeight<600){this._fullSize=true}else{this._fullSize=false}}else{if((this.position==='left'||this.position==='right')&&this.parentNode.getBoundingClientRect().width<600||(this.position==='top'||this.position==='bottom')&&this.parentNode.getBoundingClientRect().height<600){this._fullSize=true}else{this._fullSize=false}}},100)}})})();
+     */_persistentChanged:function _persistentChanged(newValue){if(newValue&&!this.opened){this.open()}},/**
+     * Called when an `iron-resize` event notifies the element that its
+     * parent container size may have changed.
+     *
+     * Size changed events will be collapsed to only trigger a new measurement
+     * every 100ms. If the panel is currently hidden, measure events
+     * will not be triggered.
+     */_handleResize:function _handleResize(e){var debouncer='measure-available-width';if(typeof this._availableWidth!=='number'){this._measureAvailableWidth();return}if(this.isDebouncerActive(debouncer)){this.cancelDebouncer(debouncer)}this.debounce(debouncer,this._measureAvailableWidth.bind(this),100)},/**
+     * Determines whether the panel should be displayed fullSize for responsiveness.
+     */_measureAvailableWidth:function _measureAvailableWidth(){if(this.fixed){if((this.position==='left'||this.position==='right')&&window.innerWidth<600||(this.position==='top'||this.position==='bottom')&&window.innerHeight<600){this._fullSize=true}else{this._fullSize=false}}else{if((this.position==='left'||this.position==='right')&&this.parentNode.getBoundingClientRect().width<600||(this.position==='top'||this.position==='bottom')&&this.parentNode.getBoundingClientRect().height<600){this._fullSize=true}else{this._fullSize=false}}},_isHidden:function _isHidden(minimizable,opened){return minimizable&&opened||!minimizable}})})();
 //# sourceMappingURL=px-panel.js.map

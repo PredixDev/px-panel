@@ -1,3 +1,7 @@
+v1.0.6
+==================
+* merge #1, add a11y, fix tests
+
 v1.0.5
 ==================
 * fix shadow dom & demo

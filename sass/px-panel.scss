@@ -69,18 +69,22 @@ Left and Right
   width: var(--px-panel-size, calculateRem(320px));
   overflow-y: auto;
 }
-.right.floating,
-.left.floating {
+.right.opened.full-size,
+.left.opened.full-size {
+  width: 100%;
+}
+.right.opened.floating:not(.full-size),
+.left.opened.floating:not(.full-size) {
   border: 1px solid var(--px-panel-border-color, gray);
 }
 
 .right {
   right: 0;
 }
-.right.opened {
+.right.opened:not(.full-size), .right.minimizable {
   border-left: 1px solid var(--px-panel-border-color, gray);
 }
-.right.floating {
+.right.floating:not(.full-size) {
   right: var(--px-panel-offset--right, 2rem);
   top: var(--px-panel-offset--top, 2rem);
   bottom: var(--px-panel-offset--bottom, 2rem);
@@ -89,10 +93,10 @@ Left and Right
 .left {
   left: 0;
 }
-.left.opened {
+.left.opened:not(.full-size), .left.minimizable {
   border-right: 1px solid var(--px-panel-border-color, gray);
 }
-.left.floating {
+.left.floating:not(.full-size) {
   left: var(--px-panel-offset--left, 2rem);
   top: var(--px-panel-offset--top, 2rem);
   bottom: var(--px-panel-offset--bottom, 2rem);
@@ -118,18 +122,22 @@ Top and Bottom
   height: var(--px-panel-size, calculateRem(320px));
   overflow-y: auto;
 }
-.top.floating,
-.bottom.floating {
+.top.opened.full-size,
+.bottom.opened.full-size {
+  height: 100%;
+}
+.top.opened.floating:not(.full-size),
+.bottom.opened.floating:not(.full-size) {
   border: 1px solid var(--px-panel-border-color, gray);
 }
 
 .top {
   top: 0;
 }
-.top.opened {
+.top.opened:not(.full-size), .top.minimizable {
   border-bottom: 1px solid var(--px-panel-border-color, gray);
 }
-.top.floating {
+.top.floating:not(.full-size) {
   right: var(--px-panel-offset--right, 2rem);
   left: var(--px-panel-offset--left, 2rem);
   top: var(--px-panel-offset--top, 2rem);
@@ -138,10 +146,10 @@ Top and Bottom
 .bottom {
   bottom: 0;
 }
-.bottom.opened {
+.bottom.opened:not(.full-size), .bottom.minimizable {
   border-top: 1px solid var(--px-panel-border-color, gray);
 }
-.bottom.floating {
+.bottom.floating:not(.full-size) {
   right: var(--px-panel-offset--right, 2rem);
   left: var(--px-panel-offset--left, 2rem);
   bottom: var(--px-panel-offset--bottom, 2rem);
@@ -170,22 +178,5 @@ Content
   display: block;
 }
 
-
-/*********************************************
-Full Size
-*********************************************/
-.full-size.full-size{
-  top: 0;
-  right: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: none;
-  border-top: none;
-}
 
 // Trumps

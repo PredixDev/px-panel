@@ -4,11 +4,23 @@
     is: 'px-panel',
 
     behaviors: [
-      Polymer.IronResizableBehavior
+      Polymer.IronResizableBehavior,
+      Polymer.IronA11yKeysBehavior
     ],
 
     listeners: {
-      'iron-resize': '_onResize'
+      'iron-resize': '_handleResize'
+    },
+
+    /**
+     * Used by iron-a11y-keys-behavior.
+     */
+    keyBindings: {
+      'esc': 'close'
+    },
+
+    hostAttributes: {
+      'role': 'region'
     },
 
     properties: {
@@ -18,7 +30,7 @@
       position: {
         type: String,
         value: 'right',
-        observer: '_onResize'
+        observer: '_handleResize'
       },
       /**
        * Whether the panel is currently open (expanded).
@@ -26,7 +38,8 @@
       opened: {
         type: Boolean,
         value: false,
-        notify: true
+        notify: true,
+        observer: '_handleResize'
       },
       /**
        * If set to true, the panel will have `position:fixed` so it will
@@ -35,7 +48,7 @@
       fixed: {
         type: Boolean,
         value: false,
-        observer: '_onResize'
+        observer: '_handleResize'
       },
       /**
        * If set to true, the panel will be opened and calls to the `close()` method will be ignored.
@@ -80,16 +93,26 @@
       _fullSize: {
         type: Boolean,
         value: false
+      },
+      /**
+       * Used by iron-a11y-keys-behavior.
+       */
+      keyEventTarget: {
+        type: Object,
+        value: function() {
+          return document.body;
+        }
       }
+
     },
     /**
-    * Opens the panel
+    * Opens the panel.
     */
     open() {
       this.opened = true;
     },
     /**
-    * Closes the panel
+    * Closes the panel. Also called by iron-a11y-keys-behavior when a user presses the "Esc" key.
     */
     close() {
       if(!this.persistent) {
@@ -117,28 +140,51 @@
         this.open();
       }
     },
-
-    _onResize(e) {
-      this.debounce('resize', function() {
-        if(this.fixed) {
-          if(((this.position === "left" || this.position === "right") && window.innerWidth < 600) ||
-            ((this.position === "top" || this.position === "bottom") && window.innerHeight < 600)) {
-            this._fullSize = true;
-          }
-          else {
-            this._fullSize = false;
-          }
+    /**
+     * Called when an `iron-resize` event notifies the element that its
+     * parent container size may have changed.
+     *
+     * Size changed events will be collapsed to only trigger a new measurement
+     * every 100ms. If the panel is currently hidden, measure events
+     * will not be triggered.
+     */
+    _handleResize(e) {
+      const debouncer = 'measure-available-width';
+      if (typeof this._availableWidth !== 'number') {
+        this._measureAvailableWidth();
+        return;
+      }
+      if (this.isDebouncerActive(debouncer)) {
+        this.cancelDebouncer(debouncer);
+      }
+      this.debounce(debouncer, this._measureAvailableWidth.bind(this), 100);
+    },
+    /**
+     * Determines whether the panel should be displayed fullSize for responsiveness.
+     */
+    _measureAvailableWidth() {
+      if(this.fixed) {
+        if(((this.position === "left" || this.position === "right") && window.innerWidth < 600) ||
+          ((this.position === "top" || this.position === "bottom") && window.innerHeight < 600)) {
+          this._fullSize = true;
         }
         else {
-          if(((this.position === "left" || this.position === "right") && this.parentNode.getBoundingClientRect().width < 600) ||
-            ((this.position === "top" || this.position === "bottom") && this.parentNode.getBoundingClientRect().height < 600)) {
-            this._fullSize = true;
-          }
-          else {
-            this._fullSize = false;
-          }
+          this._fullSize = false;
         }
-      },100);
+      }
+      else {
+        if(((this.position === "left" || this.position === "right") && this.parentNode.getBoundingClientRect().width < 600) ||
+          ((this.position === "top" || this.position === "bottom") && this.parentNode.getBoundingClientRect().height < 600)) {
+          this._fullSize = true;
+        }
+        else {
+          this._fullSize = false;
+        }
+      }
+    },
+    _isHidden(minimizable, opened) {
+      return (minimizable && opened) || !minimizable;
     }
+
   });
 })();
