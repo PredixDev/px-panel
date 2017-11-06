@@ -1,3 +1,7 @@
+v1.0.7
+==================
+* update demo per design feedback, fix test
+
 v1.0.6
 ==================
 * merge #1, add a11y, fix tests

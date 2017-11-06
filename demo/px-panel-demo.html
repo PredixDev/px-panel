@@ -49,28 +49,30 @@
             floating="{{props.floating.value}}"
             minimizable="{{props.minimizable.value}}">
             <!-- Example -->
-            <div slot="content" style="display:flex;flex-direction:column;padding:1rem;">
-              <template is="dom-if" if="{{!props.persistent.value}}">
-                <px-icon class="actionable actionable--action" icon="px-nav:close" style="cursor:pointer;" on-tap="close"></px-icon>
-              </template>
-              <span class="heading--section u-mv">Filter Scope</span>
-              <label for="input1">Group Name is</label>
-              <px-dropdown id="input1" items='["Action"]' selected="0"></px-dropdown>
-              <span class="heading--section u-mv">Device Filters</span>
-              <label for="input1">Group Name is</label>
-              <px-dropdown id="input1" items='["Action"]' selected="0"></px-dropdown>
-              <span class="heading--section u-mv">Connectivity Filters</span>
-              <label>Of type</label>
-              <div style="display:flex;flex-direction:row;">
-                <px-dropdown class="float-left u-mr" items='["="]' selected="0"></px-dropdown>
-                <px-dropdown items='["Any"]' selected="0"></px-dropdown>
+            <div slot="content" style="display:flex;flex-direction:column;padding:2rem;justify-content:space-between;min-height:100%;">
+              <div style="display:flex;flex-direction:column;margin-bottom:4rem;">
+                <template is="dom-if" if="{{!props.persistent.value}}">
+                  <px-icon class="actionable actionable--action" icon="px-nav:close" style="cursor:pointer;" on-tap="close"></px-icon>
+                </template>
+                <span class="heading--section u-mt+ u-mb++">Filter Scope</span>
+                <label for="input1">Group Name is</label>
+                <px-dropdown id="input1" items='["Action"]' selected="0"></px-dropdown>
+                <span style="margin-top:4rem;" class="heading--section u-mb++">Device Filters</span>
+                <label for="input1">Group Name is</label>
+                <px-dropdown id="input1" items='["Action"]' selected="0"></px-dropdown>
+                <span style="margin-top:4rem;" class="heading--section u-mb++">Connectivity Filters</span>
+                <label>Of type</label>
+                <div style="display:flex;flex-direction:row;">
+                  <px-dropdown class="float-left u-mr" items='["="]' selected="0"></px-dropdown>
+                  <px-dropdown items='["Any"]' selected="0"></px-dropdown>
+                </div>
+                <label class="u-mt">With source</label>
+                <div style="display:flex;flex-direction:row;">
+                  <px-dropdown class="float-left u-mr" items='["="]' selected="0"></px-dropdown>
+                  <px-dropdown items='["Any"]' selected="0"></px-dropdown>
+                </div>
               </div>
-              <label class="u-mt">With source</label>
-              <div style="display:flex;flex-direction:row;">
-                <px-dropdown class="float-left u-mr" items='["="]' selected="0"></px-dropdown>
-                <px-dropdown items='["Any"]' selected="0"></px-dropdown>
-              </div>
-              <div class="u-mt++ u-pt++" style="display:flex;flex-direction:row;justify-content:flex-end;border-top:1px solid gray;">
+              <div style="display:flex;flex-direction:row;justify-content:flex-end;border-top:1px solid #B6C3CC;margin:-2rem;padding:1rem;">
                 <button class="btn" on-tap="close">Cancel</button>
                 <button class="btn" on-tap="close">Save</button>
                 <button class="btn btn--primary" on-tap="close">Apply</button>

@@ -63,7 +63,7 @@ function runCustomTests() {
       flush(function() {
         var width = parseFloat(window.getComputedStyle(container).getPropertyValue('width')),
             height = parseFloat(window.getComputedStyle(container).getPropertyValue('height'));
-        expect(width).to.equal(60);
+        expect(width).to.be.closeTo(60,1);
         expect(height).to.be.closeTo(300,1);
         done();
       });
