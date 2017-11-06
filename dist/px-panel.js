@@ -29,7 +29,7 @@
     * Closes the panel
     */close:function close(){if(!this.persistent){this.opened=false}},/**
      * Returns the appropriate classes based on the property values.
-     */_getClasses:function _getClasses(position,background,fixed,persistent,opened,floating,minimizable,fullSize){var classes=[position,background];if(fixed)classes.push('fixed');if(persistent)classes.push('persistent');if(opened)classes.push('opened');if(floating)classes.push('floating');if(minimizable)classes.push('minimizable');if(fullSize)classes.push('full-size');return classes.join(' ')},/**
+     */_getContainerClasses:function _getContainerClasses(position,background,fixed,persistent,opened,floating,minimizable,fullSize){var classes=[position,background];if(fixed)classes.push('fixed');if(persistent)classes.push('persistent');if(opened)classes.push('opened');if(floating)classes.push('floating');if(minimizable)classes.push('minimizable');if(fullSize)classes.push('full-size');return classes.join(' ')},/**
      * Sets the `opened` property for persistent panels.
      */_persistentChanged:function _persistentChanged(newValue){if(newValue&&!this.opened){this.open()}},_onResize:function _onResize(e){this.debounce('resize',function(){if(this.fixed){if((this.position==='left'||this.position==='right')&&window.innerWidth<600||(this.position==='top'||this.position==='bottom')&&window.innerHeight<600){this._fullSize=true}else{this._fullSize=false}}else{if((this.position==='left'||this.position==='right')&&this.parentNode.getBoundingClientRect().width<600||(this.position==='top'||this.position==='bottom')&&this.parentNode.getBoundingClientRect().height<600){this._fullSize=true}else{this._fullSize=false}}},100)}})})();
 //# sourceMappingURL=px-panel.js.map

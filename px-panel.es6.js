@@ -99,7 +99,7 @@
     /**
      * Returns the appropriate classes based on the property values.
      */
-    _getClasses(position,background,fixed,persistent,opened,floating,minimizable,fullSize) {
+    _getContainerClasses(position,background,fixed,persistent,opened,floating,minimizable,fullSize) {
       var classes = [position, background];
       if(fixed) classes.push('fixed');
       if(persistent) classes.push('persistent');
