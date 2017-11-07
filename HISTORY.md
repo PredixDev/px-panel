@@ -1,3 +1,7 @@
+v1.0.8
+==================
+* add device flags
+
 v1.0.7
 ==================
 * update demo per design feedback, fix test
