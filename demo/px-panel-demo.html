@@ -14,14 +14,14 @@
 <link rel="import" href="../../px-demo/css/px-demo-styles.html" />
 <link rel="import" href="../px-panel.html" />
 <link rel="import" href="../../px-buttons-design/css/px-buttons-design-demo-styles.html" />
-<link rel="import" href="../../px-rangepicker/px-rangepicker.html" />
-
 
 <!-- Demo DOM module -->
 <dom-module id="px-panel-demo">
   <template>
     <style include="px-demo-styles" is="custom-style"></style>
-    <style include="px-buttons-design-demo-styles" is="custom-style"></style>
+    <custom-style>
+      <style include="px-buttons-design-demo-styles" is="custom-style"></style>
+    </custom-style>
 
     <!-- Header -->
     <px-demo-header module-name="px-panel" description="The px-panel component provides a container for placing controls or content. Can be fixed or relatively positioned, and persistent or shown and hidden."
@@ -31,13 +31,13 @@
     <!-- Interactive -->
     <px-demo-interactive>
       <!-- Configs -->
-      <px-demo-configs configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
+      <px-demo-configs slot="px-demo-configs" configs="[[configs]]" props="{{props}}" chosen-config="{{chosenConfig}}"></px-demo-configs>
 
       <!-- Props -->
-      <px-demo-props props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
+      <px-demo-props slot="px-demo-props" props="{{props}}" config="[[chosenConfig]]"></px-demo-props>
 
       <!-- Component ---------------------------------------------------------->
-      <px-demo-component>
+      <px-demo-component slot="px-demo-component">
         <div style="width:100%; height:100%; min-height:350px; position:relative; overflow:hidden; border:1px solid gray; padding:1rem;">
           <span>Use the toggles in Properties to invoke the panel</span>
           <px-panel
@@ -88,7 +88,7 @@
       </px-demo-component>
       <!-- END Component ------------------------------------------------------>
 
-      <px-demo-component-snippet element-properties="{{props}}" element-name="px-panel" no-indentation>
+      <px-demo-component-snippet slot="px-demo-component-snippet" element-properties="{{props}}" element-name="px-panel" no-indentation>
       </px-demo-component-snippet>
     </px-demo-interactive>
 
