@@ -4,7 +4,6 @@ describe('Basic tests for px-panel', function() {
   beforeEach(function(done) {
     panelFixture = fixture('panelFixture');
     flush(()=>{
-      debugger
       panel = panelFixture.querySelector('#panel');
       container = Polymer.dom(panel.root).querySelector('.container');
       // disable animations to avoid need for setTimeouts
