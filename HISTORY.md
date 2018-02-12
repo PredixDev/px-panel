@@ -1,3 +1,7 @@
+v1.1.1
+==================
+* reduce icon-set imports, fix demo styling
+
 v1.1.0
 ==================
 * Polymer 1.x/2.x hybrid element support
